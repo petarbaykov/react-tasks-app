@@ -1,7 +1,7 @@
 import { REGISTER, LOGIN, LOGOUT } from './types';
 
 export const register = user => {
-    return (dispatch, state) => {
+    return async (dispatch, state) => {
         const { all } = state().users;
         if (all.find(({ email }) => email === user.email)){
             return { error: 'User with email exist' };
@@ -16,7 +16,7 @@ export const register = user => {
 }
 
 export const login = user => {
-    return (dispatch, state) => {
+    return async (dispatch, state) => {
         const { all } = state().users;
 
         if (!all.find(({ email, password }) => email === user.email && password === user.password)){
