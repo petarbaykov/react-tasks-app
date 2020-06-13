@@ -9,7 +9,7 @@ import { isEmpty } from 'lodash';
 import { getState } from '../store';
 import Login from '../pages/Auth/Login/Login';
 import Register from '../pages/Auth/Register/Register';
-
+import Home from '../pages/Home/Home';
 
 const render = ({routeProps, Component, noAuth}) => {
   const { users = {} } = getState();
@@ -18,7 +18,7 @@ const render = ({routeProps, Component, noAuth}) => {
   return <Component {...routeProps} />
 }
 
-const AppRoute = ({ component: Component, noAuth, ...rest }) => <Route {...rest} render={(routeProps) => render({...routeProps, Component, noAuth})} />
+const AppRoute = ({ component: Component, noAuth, ...rest }) => <Route {...rest} render={(routeProps) => render({routeProps, Component, noAuth})} />
 
 const Router = () => {
   return (
@@ -26,7 +26,7 @@ const Router = () => {
       <Switch>
         <AppRoute exact path="/login" noAuth component={Login}/>
         <AppRoute exact path="/register" noAuth component={Register} />
-        <AppRoute exact path="/" component={() => <div>Hello</div>} />
+        <AppRoute exact path="/" component={Home} />
       </Switch>
     </BrowserRouter>
   )

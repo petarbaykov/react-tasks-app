@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import { connect } from 'react-redux';
-import { registerUser } from '../../../store/actions/users';
+import { register } from '../../../store/actions/users';
 
 class Register extends Component {
   constructor(props) {
@@ -30,8 +30,10 @@ class Register extends Component {
     e.preventDefault();
     const { name, email, password } = this.state;
     const { error, message } = await this.props.register({ name, email, password });
-    console.log(error);
-    console.log(message);
+    console.log(this.props);
+    if (!error) {
+      this.props.history.push('/');
+    }
   }
 
   render() {
@@ -71,6 +73,6 @@ export default connect(
     users: state.users.all
   }), 
   dispatch => ({
-    register: user => dispatch(registerUser(user)),
+    register: user => dispatch(register(user)),
   })
 )(Register)

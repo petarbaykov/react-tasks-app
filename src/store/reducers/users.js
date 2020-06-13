@@ -1,16 +1,19 @@
-import { REGISTER_USER } from '../actions/types';
+import { REGISTER, LOGIN, LOGOUT } from '../actions/types';
 
 const initialState = {
   all: [],
   current: {},
-  test: 5
 }
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case REGISTER_USER:
+    case REGISTER:
       const user = { ...payload, role: 'user' };
       return { ...state, current: user, all: [...state.all, user] };
+    case LOGIN: 
+      return { ...state, current: payload };
+    case LOGOUT:
+      return { ...state, current: {} }
     default:
        return state;
   }
