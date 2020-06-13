@@ -31,6 +31,7 @@ const Router = () => {
         <AppRoute exact path="/" component={Home} />
         <AppRoute exact path="/tasks" component={TasksList} />
         <AppRoute exact path="/tasks/create" component={TaskCreate} />
+        <AppRoute exact path="/tasks/edit/:id" component={TaskCreate} />
       </Switch>
     </BrowserRouter>
   )

@@ -1,9 +1,8 @@
-import { ADD_TASK } from './types';
+import { ADD_TASK, EDIT_TASK, REMOVE_TASK } from './types';
 import { isEmpty } from 'lodash';
 
 export const add = payload => {
     return async (dispatch, state)  => {
-        console.log(state());
         const { current } = state().users;
         if (isEmpty(current)) {
             return {
@@ -15,5 +14,19 @@ export const add = payload => {
             type: ADD_TASK,
             payload: task
         })
+    }
+}
+
+export const edit = payload => {
+    return {
+        type: EDIT_TASK,
+        payload
+    }
+}
+
+export const remove = id => {
+    return {
+        type: REMOVE_TASK,
+        payload: id
     }
 }
