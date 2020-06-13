@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default (props)  => {
-
-  console.log('here');
-
+export default props  => {
   return (
-    <input />
+    <div className="input-group">
+      { props.label ? <label>{props.label}</label> : "" }
+      <input {...props} autoComplete="asdas" />
+    </div>
   );
 }

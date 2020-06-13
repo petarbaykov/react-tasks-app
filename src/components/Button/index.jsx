@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default (props)  => {
+export default props  => {
   return (
-    <button>
+    <button {...props}>
       { props.children }
     </button>
   );
