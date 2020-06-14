@@ -5,7 +5,7 @@ import { remove } from '../../store/actions/tasks'
 import Button from '../Button';
 import Card from '../Layout/Card';
 
-const TaskCard = ({ task, removeTask, history })  => {
+const TaskCard = ({ task, removeTask })  => {
   const { title, description, estimate, status, id } = task;
   return (
     <Card>

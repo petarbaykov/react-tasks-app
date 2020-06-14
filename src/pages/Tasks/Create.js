@@ -32,7 +32,7 @@ class Create extends Component {
 
       onSubmit = async e => {
         e.preventDefault();
-        const { error, message } = await this.taskAction();
+        const { error } = await this.taskAction();
         if (!error) {
           return this.props.history.push('/tasks');
         }
