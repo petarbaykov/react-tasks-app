@@ -9,7 +9,7 @@ export const add = payload => {
                 error: "You need to be loged in to add task"
             }
         }
-        const task = { ...payload, user_id: current.id, status: 'pending' };
+        const task = { ...payload, user_id: current.id, status: 'pending', date: new Date().getTime() };
         return dispatch({
             type: ADD_TASK,
             payload: task

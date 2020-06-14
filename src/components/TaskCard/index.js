@@ -5,16 +5,22 @@ import { remove, setStatus } from '../../store/actions/tasks'
 import Button from '../Button';
 import Card from '../Layout/Card';
 
-const TaskCard = ({ task, removeTask, setStatus })  => {
-  const { title, description, estimate, status, id } = task;
+const TaskCard = ({ task, removeTask, setStatus, user })  => {
+  const { title, description, estimate, status, id, date, user_id } = task;
   const badge = status === 'pending' ? 'primary' : 'success';
   return (
     <Card>
       <h5 className="card-title">{title}</h5>
       <p className="card-text">{description}</p>
-      <p>Estimate {estimate}</p>
+      <p>Estimate: {estimate}</p>
       <p>Status <span className={`badge badge-${badge}`}>{status}</span></p>
-      <div className="dropdown">
+      <p>Date: {new Date(date).toLocaleString()}</p>
+      {
+        user.id !== user_id ? <p>User: {user.name}</p> : ""
+      }
+      <Button className="btn-danger" onClick={() => removeTask(id)}>Delete</Button>
+      <Link className="btn btn-success" to={{pathname: `/tasks/edit/${id}`}}>Edit</Link>
+      <div className="dropdown d-inline-block">
         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Status
         </button>
@@ -23,14 +29,12 @@ const TaskCard = ({ task, removeTask, setStatus })  => {
           <div className="dropdown-item" onClick={() => setStatus(id, 'pending')}>Pending</div>
         </div>
       </div>
-      <Button className="btn-danger" onClick={() => removeTask(id)}>Delete</Button>
-      <Link className="btn btn-success" to={{pathname: `/tasks/edit/${id}`}}>Edit</Link>
     </Card>
   );
 }
 
 export default connect(
-  null, 
+  state => ({ user: state.users.current }), 
   dispatch => ({
     removeTask: id => dispatch(remove(id)),
     setStatus: (id, status) => dispatch(setStatus({ id, status })),
