@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TaskCard from '../../components/TaskCard';
+import UserCard from '../../components/UserCard';
 
 class List extends Component {
 
@@ -11,9 +11,9 @@ class List extends Component {
     render() {
         return (
             <div>
-                Tasks List
+                Users List
                 {
-                    this.props.tasks.map((task, i) => <TaskCard task={task} key={i}/>)
+                    this.props.users.map((user, i) => <UserCard user={user} key={i}/>)
                 }
             </div>
         )
@@ -21,5 +21,5 @@ class List extends Component {
 }
 
 export default connect(state => ({
-    tasks: state.tasks.list.filter(t => state.users.current.role === 'user' ? t.user_id === state.users.current.id : t)
+    users: state.users.all.filter(t => t.id !== state.users.current.id)
 }), null)(List);

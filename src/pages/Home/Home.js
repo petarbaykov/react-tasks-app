@@ -15,6 +15,9 @@ class Home extends Component {
                 <button onClick={this.logout}>Logout</button>
                 <Link to="/tasks">Tasks</Link>
                 <Link to="/tasks/create">Create task</Link>
+
+                <Link to="/users">Users</Link>
+                <Link to="/users/create">Create user</Link>
             </div>
         )
     }
