@@ -2,9 +2,9 @@ import React from 'react';
 
 export default props  => {
   return (
-    <div className="input-group">
+    <div className="form-group">
       { props.label ? <label>{props.label}</label> : "" }
-      <input {...props} autoComplete="asdas" />
+      <input {...props} className={`form-control ${props.className}`} autoComplete="asdas" />
     </div>
   );
 }

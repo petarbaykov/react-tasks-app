@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { login } from '../../../store/actions/users';
+import { validateEmail } from '../../../utils';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
-
+import Container from '../../../components/Container';
 
 class Login extends Component {
 
@@ -11,15 +13,17 @@ class Login extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: '',
+      message: ''
     }
   }
   onInputChange = e => {
     e.persist();
-    console.log(e.target.name);
     this.setState({
       [e.target.name]: e.target.value,
-      errorMessage: ''
+      error: '',
+      message: ''
     });
   }
 
@@ -27,31 +31,45 @@ class Login extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     const { error, message } = await this.props.login({ email, password });
+    
     if (!error) {
-      return this.props.history.push('/');
+      this.setState({ message });
+      setTimeout(() => this.props.history.push('/'), 1000);
+      return;
     }
+
+    this.setState({ error });
   }
 
 
   render() {
+    const disabled = !this.state.email || !validateEmail(this.state.email) || !this.state.password;
     return (
+      <Container>
+        <h1>Login</h1>
         <form onSubmit={this.onSubmit}>
+        {this.state.error ? <div className="alert alert-danger">{this.state.error}</div> : ''}
+        {this.state.message ? <div className="alert alert-success">{this.state.message}</div> : ''}
             <Input
                 type="email"
                 label="Email"
                 onChange={this.onInputChange}
                 name="email"
+                className={this.state.error ? 'is-invalid' : ''}
             />
             <Input
                 type="password"
                 label="Password"
                 onChange={this.onInputChange}
                 name="password"
+                className={this.state.error ? 'is-invalid' : ''}
             />
-            <Button>
+            <Button disabled={disabled} className="btn-primary btn-block">
               Login
             </Button>
+            <Link to="/register">Don't have account?</Link>
         </form>
+      </Container>
     );
   }
 }
