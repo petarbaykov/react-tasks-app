@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { logout } from '../../store/actions/users';
+import Content from '../../components/Layout/Content';
 
 class Home extends Component {
 
@@ -11,14 +11,10 @@ class Home extends Component {
     }
     render() {
         return (
-            <div>
+            <Content>
                 <button onClick={this.logout}>Logout</button>
-                <Link to="/tasks">Tasks</Link>
-                <Link to="/tasks/create">Create task</Link>
-
-                <Link to="/users">Users</Link>
-                <Link to="/users/create">Create user</Link>
-            </div>
+                Welcome
+            </Content>
         )
     }
 }

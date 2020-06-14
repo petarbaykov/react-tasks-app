@@ -9,7 +9,6 @@ import { isEmpty } from 'lodash';
 import { getState } from '../store';
 import Login from '../pages/Auth/Login/Login';
 import Register from '../pages/Auth/Register/Register';
-import Home from '../pages/Home/Home';
 import TasksList from '../pages/Tasks/List';
 import TaskCreate from '../pages/Tasks/Create';
 import UsersList from '../pages/Users/List';
@@ -29,7 +28,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <AppRoute exact path="/" component={Home} />
+        <AppRoute exact path="/" component={TasksList} />
         <AppRoute exact path="/login" noAuth component={Login}/>
         <AppRoute exact path="/register" noAuth component={Register} />
         <AppRoute exact path="/tasks" component={TasksList} />

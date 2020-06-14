@@ -29,7 +29,7 @@ export const login = user => {
             payload: find
         });
 
-        return { message: 'User logged in successfully!' }
+        return { message: 'User logged in successfully! Redirecting...' }
     }
 }
 

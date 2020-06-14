@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { add, edit } from '../../store/actions/users';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-      
+import Content from '../../components/Layout/Content';
 
 class Create extends Component {
 
@@ -36,7 +36,7 @@ class Create extends Component {
       onSubmit = async e => {
         e.preventDefault();
         
-        const { error, message } = await this.userAction();
+        const { error } = await this.userAction();
         if (!error) {
           return this.props.history.push('/users');
         }
@@ -44,7 +44,7 @@ class Create extends Component {
 
     render() {
         return (
-            <div>
+            <Content>
                 <form onSubmit={this.onSubmit}>
                     <Input
                         type="text"
@@ -71,16 +71,17 @@ class Create extends Component {
                         checked={this.state.isAdmin}
                         value={this.state.isAdmin}
                         onChange={() => this.setState({ isAdmin: !this.state.isAdmin})} />
-                    <Button>Save</Button>
+                    <Button className="btn-success btn-block">Save</Button>
                 </form>
-            </div>
+            </Content>
         )
     }
 }
 
-export default connect(state => ({
-    users: state.users.all
-}), dispatch => ({
+export default connect(
+  state => ({ users: state.users.all }), 
+  dispatch => ({
     addUser: task => dispatch(add(task)),
     editUser: task => dispatch(edit(task)),
-}))(Create);
+  })
+)(Create);

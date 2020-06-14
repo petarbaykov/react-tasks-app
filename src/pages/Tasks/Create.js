@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { add, edit } from '../../store/actions/tasks';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Content from '../../components/Layout/Content';
 
 class Create extends Component {
 
     constructor(props) {
         super(props);
         const { title, description, estimate, id } = props.tasks.find(t => t.id === props.match.params.id) || {};
-        console.log(title);
         this.state = {
           title: title || '',
           description: description || '',
@@ -21,7 +21,6 @@ class Create extends Component {
         e.persist();
         this.setState({
           [e.target.name]: e.target.value,
-          errorMessage: ''
         });
       }
       
@@ -33,7 +32,6 @@ class Create extends Component {
 
       onSubmit = async e => {
         e.preventDefault();
-        
         const { error, message } = await this.taskAction();
         if (!error) {
           return this.props.history.push('/tasks');
@@ -41,8 +39,9 @@ class Create extends Component {
       }
 
     render() {
+        const disabled = !this.state.title || !this.state.description || !this.state.estimate;
         return (
-            <div>
+            <Content>
                 <form onSubmit={this.onSubmit}>
                     <Input
                         type="text"
@@ -63,16 +62,17 @@ class Create extends Component {
                         value={this.state.estimate}
                         onChange={this.onInputChange} />
 
-                    <Button>Save</Button>
+                    <Button disabled={disabled} className="btn-success btn-block">Save</Button>
                 </form>
-            </div>
+            </Content>
         )
     }
 }
 
-export default connect(state => ({
-    tasks: state.tasks.list
-}), dispatch => ({
+export default connect(
+  state => ({ tasks: state.tasks.list}), 
+  dispatch => ({
     addTask: task => dispatch(add(task)),
     editTask: task => dispatch(edit(task)),
-}))(Create);
+  })
+)(Create);
