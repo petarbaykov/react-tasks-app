@@ -1,4 +1,4 @@
-import { ADD_TASK, EDIT_TASK, REMOVE_TASK } from './types';
+import { ADD_TASK, EDIT_TASK, REMOVE_TASK, SET_STATUS } from './types';
 import { isEmpty } from 'lodash';
 
 export const add = payload => {
@@ -9,7 +9,7 @@ export const add = payload => {
                 error: "You need to be loged in to add task"
             }
         }
-        const task = { ...payload, user_id: current.id, status: 'waiting' };
+        const task = { ...payload, user_id: current.id, status: 'pending' };
         return dispatch({
             type: ADD_TASK,
             payload: task
@@ -28,5 +28,12 @@ export const remove = id => {
     return {
         type: REMOVE_TASK,
         payload: id
+    }
+}
+
+export const setStatus = payload => {
+    return {
+        type: SET_STATUS,
+        payload
     }
 }

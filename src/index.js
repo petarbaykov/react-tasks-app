@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import initStore from './store'
 import './index.scss';
 
+
 const { store, persistor } = initStore();
 ReactDOM.render(
   <Provider store={store}>
